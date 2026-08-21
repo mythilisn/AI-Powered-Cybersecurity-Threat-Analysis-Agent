@@ -1,0 +1,20 @@
+# Virtual Environment & Python cache
+backend/venv/
+backend/__pycache__/
+backend/*/__pycache__/
+*.pyc
+
+# Environment Secrets
+backend/.env
+.env
+.env.local
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
