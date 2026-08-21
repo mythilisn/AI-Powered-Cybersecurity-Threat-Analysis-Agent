@@ -44,3 +44,27 @@ async def health_check():
         "database": db_status
     }
 
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from app.api.auth import router as auth_router
+from app.api.ioc import router as ioc_router
+
+app = FastAPI(
+    title="AI-Powered SOC Threat Analysis API",
+    version="1.0.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(auth_router)
+app.include_router(ioc_router)
+
+@app.get("/health")
+def health_check():
+    return {"status": "operational", "service": "SOC Threat Agent"}
