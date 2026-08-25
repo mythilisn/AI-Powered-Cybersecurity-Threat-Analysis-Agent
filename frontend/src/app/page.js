@@ -71,7 +71,12 @@ export default function AuthPage() {
       const res = await axios.post(endpoint, payload);
       if (isLogin) {
         localStorage.setItem('access_token', res.data.access_token);
-        setStatusMsg({ type: 'success', text: 'Authentication successful! Session token active.' });
+        setStatusMsg({ type: 'success', text: 'Authentication successful! Redirecting...' });
+        
+        // Redirect to dashboard immediately upon successful authentication
+        setTimeout(() => {
+          window.location.href = '/dashboard';
+        }, 400);
       } else {
         setStatusMsg({ type: 'success', text: 'Operator registered successfully! You can now sign in.' });
         resetForm();
