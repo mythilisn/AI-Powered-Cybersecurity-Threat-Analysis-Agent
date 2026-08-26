@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 export default function AuthPage() {
+  const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({ email: '', username: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -62,7 +64,7 @@ export default function AuthPage() {
     setLoading(true);
     setStatusMsg({ type: '', text: '' });
 
-    const endpoint = isLogin ? 'http://127.0.0.1:5000/auth/login' : 'http://127.0.0.1:5000/auth/register';
+    const endpoint = isLogin ? 'http://127.0.0.1:8000/auth/login' : 'http://127.0.0.1:8000/auth/register';
     const payload = isLogin
       ? { username: formData.username, password: formData.password }
       : { email: formData.email, username: formData.username, password: formData.password };
@@ -71,7 +73,7 @@ export default function AuthPage() {
       const res = await axios.post(endpoint, payload);
       if (isLogin) {
         localStorage.setItem('access_token', res.data.access_token);
-        setStatusMsg({ type: 'success', text: 'Authentication successful! Session token active.' });
+        router.push('/dashboard');
       } else {
         setStatusMsg({ type: 'success', text: 'Operator registered successfully! You can now sign in.' });
         resetForm();
