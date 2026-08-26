@@ -39,14 +39,14 @@ export default function DashboardPage() {
       status: 'AVAILABLE',
     },
     {
-      category: 'THREAT INTELLIGENCE',
-      title: 'VirusTotal Lookup',
-      description:
-        'Check URL and file-hash indicators against VirusTotal to obtain reputation and threat-intelligence information.',
-      button: 'Coming Soon',
-      action: null,
-      status: 'NEXT FEATURE',
-    },
+  category: 'THREAT INTELLIGENCE',
+  title: 'VirusTotal Lookup',
+  description:
+    'Check URL and file-hash indicators against VirusTotal to obtain reputation and threat-intelligence information.',
+  button: 'Open VirusTotal Lookup',
+  action: () => router.push('/virustotal'),
+  status: 'AVAILABLE',
+},
   ];
 
   return (

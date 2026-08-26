@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from app.api.auth import router as auth_router
 from app.api.analysis import router as analysis_router
 from app.api.ioc import router as ioc_router
+from app.api.virustotal import router as virustotal_router
 from app.core.database import client
 
 load_dotenv()
@@ -29,7 +30,7 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(analysis_router)
 app.include_router(ioc_router)
-
+app.include_router(virustotal_router)
 
 @app.get("/")
 async def root():
