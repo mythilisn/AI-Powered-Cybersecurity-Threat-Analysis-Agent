@@ -70,15 +70,29 @@ export default function AuthPage() {
       : { email: formData.email, username: formData.username, password: formData.password };
 
     try {
-      const res = await axios.post(endpoint, payload);
-      if (isLogin) {
-        localStorage.setItem('access_token', res.data.access_token);
-        router.push('/dashboard');
-      } else {
-        setStatusMsg({ type: 'success', text: 'Operator registered successfully! You can now sign in.' });
-        resetForm();
-        setIsLogin(true);
-      }
+  const res = await axios.post(endpoint, payload);
+
+  if (isLogin) {
+    localStorage.setItem('access_token', res.data.access_token);
+
+    setStatusMsg({
+      type: 'success',
+      text: 'Authentication successful! Redirecting...'
+    });
+
+    setTimeout(() => {
+      router.push('/dashboard');
+    }, 600);
+
+  } else {
+    setStatusMsg({
+      type: 'success',
+      text: 'Operator registered successfully! You can now sign in.'
+    });
+
+    resetForm();
+    setIsLogin(true);
+  }
     } catch (err) {
       if (err.response?.data?.detail) {
         const detail = err.response.data.detail;

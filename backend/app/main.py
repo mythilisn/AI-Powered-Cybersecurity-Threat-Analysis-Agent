@@ -1,16 +1,21 @@
 import os
 from datetime import datetime
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
 from app.api.auth import router as auth_router
 from app.api.analysis import router as analysis_router
+from app.api.ioc import router as ioc_router
 from app.core.database import client
 
 load_dotenv()
 
-app = FastAPI(title="AI-Powered Cybersecurity Threat Analysis Agent")
+app = FastAPI(
+    title="AI-Powered SOC Threat Analysis API",
+    version="1.0.0"
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,8 +25,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Register all API modules
 app.include_router(auth_router)
 app.include_router(analysis_router)
+app.include_router(ioc_router)
+
 
 @app.get("/")
 async def root():
@@ -32,17 +40,18 @@ async def root():
         "health": "/health"
     }
 
+
 @app.get("/health")
 async def health_check():
     db_status = "connected"
+
     try:
         await client.admin.command("ping")
     except Exception:
         db_status = "disconnected"
-        
+
     return {
         "status": "OK",
         "timestamp": datetime.utcnow().isoformat(),
         "database": db_status
     }
-

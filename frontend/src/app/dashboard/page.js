@@ -19,6 +19,36 @@ export default function DashboardPage() {
     router.replace('/');
   };
 
+  const modules = [
+    {
+      category: 'STATIC ANALYSIS',
+      title: 'Threat Analyzer',
+      description:
+        'Analyze text and scripts for suspicious keywords, PowerShell commands, encoded content, obfuscation, and other static indicators.',
+      button: 'Open Static Analysis',
+      action: () => router.push('/analysis'),
+      status: 'AVAILABLE',
+    },
+    {
+      category: 'IOC EXTRACTION',
+      title: 'Threat Intelligence Extractor',
+      description:
+        'Extract IP addresses, URLs, domains, email addresses, hashes, and CVE identifiers from threat reports and uploaded forensic files.',
+      button: 'Open IoC Extraction',
+      action: () => router.push('/ioc'),
+      status: 'AVAILABLE',
+    },
+    {
+      category: 'THREAT INTELLIGENCE',
+      title: 'VirusTotal Lookup',
+      description:
+        'Check URL and file-hash indicators against VirusTotal to obtain reputation and threat-intelligence information.',
+      button: 'Coming Soon',
+      action: null,
+      status: 'NEXT FEATURE',
+    },
+  ];
+
   return (
     <main
       style={{
@@ -31,7 +61,7 @@ export default function DashboardPage() {
     >
       <div
         style={{
-          maxWidth: '1000px',
+          maxWidth: '1100px',
           margin: '0 auto',
         }}
       >
@@ -60,13 +90,19 @@ export default function DashboardPage() {
               style={{
                 color: '#f8fafc',
                 margin: '8px 0',
+                fontSize: '32px',
               }}
             >
-              Security Dashboard
+              Security Analysis Platform
             </h1>
 
-            <p style={{ color: '#94a3b8' }}>
-              Select a security analysis module.
+            <p
+              style={{
+                color: '#94a3b8',
+                margin: 0,
+              }}
+            >
+              Select a security analysis module to begin.
             </p>
           </div>
 
@@ -85,71 +121,88 @@ export default function DashboardPage() {
           </button>
         </div>
 
-        {/* Static Analysis Card */}
+        {/* Module Cards */}
         <div
           style={{
             display: 'grid',
             gridTemplateColumns:
-              'repeat(auto-fit, minmax(280px, 1fr))',
+              'repeat(auto-fit, minmax(300px, 1fr))',
             gap: '20px',
           }}
         >
-          <div
-            style={{
-              backgroundColor: '#111827',
-              border: '1px solid #1f2937',
-              borderRadius: '12px',
-              padding: '24px',
-            }}
-          >
+          {modules.map((module) => (
             <div
+              key={module.title}
               style={{
-                color: '#38bdf8',
-                fontSize: '13px',
-                fontWeight: 'bold',
-                marginBottom: '10px',
+                backgroundColor: '#111827',
+                border: '1px solid #1f2937',
+                borderRadius: '12px',
+                padding: '26px',
+                display: 'flex',
+                flexDirection: 'column',
+                minHeight: '280px',
               }}
             >
-              STATIC ANALYSIS
+              <div
+                style={{
+                  color:
+                    module.status === 'AVAILABLE'
+                      ? '#38bdf8'
+                      : '#f59e0b',
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                  letterSpacing: '1px',
+                  marginBottom: '12px',
+                }}
+              >
+                {module.category}
+              </div>
+
+              <h2
+                style={{
+                  color: '#f8fafc',
+                  fontSize: '21px',
+                  margin: '0 0 12px 0',
+                }}
+              >
+                {module.title}
+              </h2>
+
+              <p
+                style={{
+                  color: '#94a3b8',
+                  lineHeight: '1.6',
+                  flex: 1,
+                  margin: 0,
+                }}
+              >
+                {module.description}
+              </p>
+
+              <button
+                onClick={module.action || undefined}
+                disabled={!module.action}
+                style={{
+                  marginTop: '22px',
+                  width: '100%',
+                  padding: '12px',
+                  border: 'none',
+                  borderRadius: '7px',
+                  backgroundColor: module.action
+                    ? '#0284c7'
+                    : '#334155',
+                  color: '#fff',
+                  fontWeight: '600',
+                  cursor: module.action
+                    ? 'pointer'
+                    : 'not-allowed',
+                  opacity: module.action ? 1 : 0.7,
+                }}
+              >
+                {module.button}
+              </button>
             </div>
-
-            <h2
-              style={{
-                color: '#f8fafc',
-                fontSize: '20px',
-              }}
-            >
-              Threat Analyzer
-            </h2>
-
-            <p
-              style={{
-                color: '#94a3b8',
-                lineHeight: '1.6',
-              }}
-            >
-              Analyze text and scripts for suspicious
-              keywords, PowerShell commands, encoded
-              content, and other static indicators.
-            </p>
-
-            <button
-              onClick={() => router.push('/analysis')}
-              style={{
-                marginTop: '15px',
-                width: '100%',
-                padding: '12px',
-                border: 'none',
-                borderRadius: '7px',
-                backgroundColor: '#0284c7',
-                color: '#fff',
-                fontWeight: '600',
-                cursor: 'pointer',
-              }}
-            >
-              Open Static Analysis
-            </button>
-          </div>
+          ))}
         </div>
       </div>
     </main>
