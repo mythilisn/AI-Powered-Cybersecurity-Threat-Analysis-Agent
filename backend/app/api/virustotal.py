@@ -3,7 +3,7 @@ from typing import Any
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-from app.services.virustotal import lookup_indicator
+from ..services.virustotal import lookup_indicator
 
 
 router = APIRouter(

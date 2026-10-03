@@ -2,9 +2,9 @@ from fastapi import APIRouter, HTTPException, status, UploadFile, File, Form
 from pydantic import BaseModel, Field
 from typing import Dict, Any, Optional
 from datetime import datetime
-from app.services.ioc_parser import IOCExtractor
-from app.services.file_parser import FileParserService
-from app.core.database import db
+from ..services.ioc_parser import IOCExtractor
+from ..services.file_parser import FileParserService
+from ..core.database import db
 
 router = APIRouter(prefix="/ioc", tags=["IoC Extraction"])
 ioc_logs_collection = db["ioc_extractions"]
