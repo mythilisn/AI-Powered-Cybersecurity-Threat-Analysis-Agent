@@ -47,6 +47,15 @@ export default function DashboardPage() {
   action: () => router.push('/virustotal'),
   status: 'AVAILABLE',
 },
+    {
+      category: 'THREAT SUBMISSION',
+      title: 'Text / Email + URL Submission',
+      description:
+        'Submit suspicious text, emails, or URLs for comprehensive threat analysis including IOC extraction, static analysis, and VirusTotal reputation checks.',
+      button: 'Open Threat Submission',
+      action: () => router.push('/submission'),
+      status: 'AVAILABLE',
+    },
   ];
 
   return (

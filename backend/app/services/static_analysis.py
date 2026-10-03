@@ -66,6 +66,20 @@ SUSPICIOUS_PATTERNS = [
         "severity": "medium",
         "pattern": r"(?i)\b(?:payload|ransomware|malware|backdoor|reverse\s+shell)\b",
         "description": "Malware or payload related keyword detected."
+    },
+    {
+        "name": "Phishing urgency",
+        "category": "phishing",
+        "severity": "medium",
+        "pattern": r"(?i)\b(?:urgent|immediately|action\s+required)\b.{0,100}\b(?:account| access|security|verify|suspended|disabled)\b|\b(?:account|access)\b.{0,100}\b(?:suspended|disabled|locked)\b",
+        "description": "Urgent account or security language commonly used in phishing messages detected."
+    },
+    {
+        "name": "Suspicious verification link",
+        "category": "phishing",
+        "severity": "medium",
+        "pattern": r"(?i)\b(?:verify|confirm|login|sign\s*in|secure)\b.{0,120}https?://",
+        "description": "A verification or login request followed by a link was detected."
     }
 ]
 
